@@ -1,0 +1,12 @@
+"use client";
+
+import { SectionCard } from "@/components/shared/layout/SectionCard";
+import Input from "@/components/shared/input/Input";
+import type { GridState } from "../types";
+
+type Props = { state: GridState; update: <K extends keyof GridState>(key: K, value: GridState[K]) => void };
+
+export default function BasicsSection({ state, update }: Props) {
+  return <SectionCard title="Basics" subtitle="Basics controls for native layout/page-structure generation."><Input label="Title" value={state.title} onChange={(value) => update("title", value)} />
+<Input label="Description" value={state.description} onChange={(value) => update("description", value)} /></SectionCard>;
+}
