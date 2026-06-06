@@ -1,22 +1,22 @@
 "use client";
 
-import { SectionCard } from "@/components/shared/layout/SectionCard";
 import Input from "@/components/shared/input/Input";
 import Select from "@/components/shared/input/Select";
+import { SectionCard } from "@/components/shared/layout/SectionCard";
 import type { GridState } from "../types";
 
 type Props = { state: GridState; update: <K extends keyof GridState>(key: K, value: GridState[K]) => void };
 
 export default function AccessibilitySection({ state, update }: Props) {
-  return <SectionCard title="Accessibility" subtitle="Accessibility controls for native layout/page-structure generation."><Input label="Landmark label" value={state.landmarkLabel} onChange={(value) => update("landmarkLabel", value)} />
-<Select label="Semantic role" value={state.role} options={[
-  "presentation",
-  "group",
-  "region",
-  "main",
-  "banner",
-  "contentinfo",
-  "navigation",
-  "separator"
-]} onChange={(value) => update("role", value)} /></SectionCard>;
+  return (
+    <SectionCard title="Accessibility" subtitle="Landmark label and semantic role controls for native grid generation.">
+      <Input label="Landmark label" value={state.landmarkLabel} onChange={(value) => update("landmarkLabel", value)} />
+      <Select
+        label="Semantic role"
+        value={state.role}
+        options={["group", "region", "main", "banner", "contentinfo", "navigation"]}
+        onChange={(value) => update("role", value)}
+      />
+    </SectionCard>
+  );
 }

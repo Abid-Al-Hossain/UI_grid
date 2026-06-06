@@ -32,10 +32,13 @@ export const DEFAULT_GRID_STATE: GridState = {
   "autoMode": "fit",
   "dense": false,
   "itemCount": 6,
-  "itemMin": 140
+  "itemMin": 140,
+  "layoutVariant": "balanced",
+  "justifyItems": "stretch",
+  "alignItems": "stretch"
 };
 
-export const GRID_PRESETS: StudioPreset[] = [
+const RAW_GRID_PRESETS: StudioPreset[] = [
   {
     "id": "premium-glass-compact",
     "family": "premium",
@@ -2341,3 +2344,31 @@ export const GRID_PRESETS: StudioPreset[] = [
     }
   }
 ];
+
+const layoutVariants = ["balanced", "feature", "mosaic", "dashboard"] as const;
+const autoModes = ["fit", "fill", "fixed"] as const;
+const alignments = ["stretch", "start", "center", "end"] as const;
+
+export const GRID_PRESETS: StudioPreset[] = RAW_GRID_PRESETS.map((preset, index) => {
+  const columns = preset.size === "compact" ? 2 + (index % 3) : 3 + (index % 4);
+  const rows = preset.size === "compact" ? 2 + (index % 2) : 3 + (index % 3);
+  const autoMode = autoModes[index % autoModes.length];
+  const layoutVariant = layoutVariants[index % layoutVariants.length];
+
+  return {
+    ...preset,
+    tags: Array.from(new Set([...preset.tags, autoMode, layoutVariant, "minmax"])),
+    state: {
+      ...preset.state,
+      columns,
+      rows,
+      autoMode,
+      dense: layoutVariant === "mosaic" || layoutVariant === "dashboard",
+      itemCount: Math.min(24, preset.state.itemCount + (index % 5)),
+      itemMin: Math.min(320, preset.state.itemMin + (index % 4) * 16),
+      layoutVariant,
+      justifyItems: alignments[index % alignments.length],
+      alignItems: alignments[(index + 1) % alignments.length],
+    },
+  };
+});

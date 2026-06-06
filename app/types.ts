@@ -1,5 +1,10 @@
 export type SectionId = "presets" | "basics" | "metadata" | "structure" | "layout" | "sizing" | "spacing" | "surface" | "colors" | "border" | "radius" | "shadow" | "typography" | "states" | "accessibility";
 
+export type GridElement = "div" | "section" | "main" | "header" | "footer" | "aside" | "nav";
+export type GridRole = "group" | "region" | "main" | "banner" | "contentinfo" | "navigation";
+export type GridLayoutVariant = "balanced" | "feature" | "mosaic" | "dashboard";
+export type GridItemAlignment = "stretch" | "start" | "center" | "end";
+
 export type GridState = {
   description: string;
   id: string;
@@ -24,8 +29,8 @@ export type GridState = {
   previewState: "default" | "hover" | "focus" | "active" | "collapsed" | "mobile" | "overflow";
   motion: boolean;
   title: string;
-  element: "div" | "section" | "main" | "header" | "footer" | "aside" | "nav" | "hr";
-  role: "presentation" | "group" | "region" | "main" | "banner" | "contentinfo" | "navigation" | "separator";
+  element: GridElement;
+  role: GridRole;
   landmarkLabel: string;
   columns: number;
   rows: number;
@@ -33,6 +38,9 @@ export type GridState = {
   dense: boolean;
   itemCount: number;
   itemMin: number;
+  layoutVariant?: GridLayoutVariant;
+  justifyItems?: GridItemAlignment;
+  alignItems?: GridItemAlignment;
 };
 
 export type StudioPreset = { id: string; family: string; archetype: string; variant: string; size: string; tags: string[]; state: GridState };
