@@ -94,6 +94,7 @@ function getShellStyle(grid) {
     justifyItems: grid.justifyItems || "stretch",
     alignItems: grid.alignItems || "stretch",
     alignContent: "start",
+    transition: grid.motion ? "gap 0.2s ease, background 0.2s ease" : "none",
   };
 }
 
