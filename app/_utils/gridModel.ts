@@ -70,6 +70,7 @@ export function getShellStyle(state: GridState): CSSProperties {
     justifyItems: getAlignment(state.justifyItems),
     alignItems: getAlignment(state.alignItems),
     alignContent: "start",
+    transition: state.motion ? "gap 0.2s ease, background 0.2s ease" : "none",
   };
 }
 
