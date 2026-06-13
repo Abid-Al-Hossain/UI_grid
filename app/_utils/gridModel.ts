@@ -58,10 +58,10 @@ export function getShellStyle(state: GridState): CSSProperties {
     padding: state.padding,
     borderRadius: state.radius,
     border: `${state.borderWidth}px solid ${state.border}`,
-    boxShadow: `0 ${Math.round(state.shadow / 3)}px ${state.shadow}px rgba(0,0,0,.28)`,
+    boxShadow: `0 ${Math.round(state.shadowBlur / 3)}px ${state.shadowBlur}px rgba(0,0,0,.28)`,
     background: state.background,
     color: state.foreground,
-    fontFamily: state.fontFamily,
+    fontFamily: state.fontBucket === "google" ? `"${state.googleFontFamily}", sans-serif` : "inherit",
     display: "grid",
     gridTemplateColumns: getTemplateColumns(state),
     gridTemplateRows: getTemplateRows(state),
@@ -70,7 +70,7 @@ export function getShellStyle(state: GridState): CSSProperties {
     justifyItems: getAlignment(state.justifyItems),
     alignItems: getAlignment(state.alignItems),
     alignContent: "start",
-    transition: state.motion ? "gap 0.2s ease, background 0.2s ease" : "none",
+    transition: state.transitionDuration > 0 ? `gap ${state.transitionDuration}ms ${state.transitionEasing}, background ${state.transitionDuration}ms ${state.transitionEasing}` : "none",
   };
 }
 
