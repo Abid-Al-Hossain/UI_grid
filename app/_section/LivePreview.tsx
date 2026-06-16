@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { GridState } from "../types";
 import { SYSTEM_FONTS } from "@/components/shared/typography/fontConstants";
 import { getGridAriaLabel, getGridItems, getGridRole, getItemStyle, getLayoutVariant, getShellStyle } from "../_utils/gridModel";
@@ -26,6 +27,7 @@ export default function LivePreview({ state }: { state: GridState }) {
   const Element = state.element;
   const role = getGridRole(state);
   const items = getGridItems(state);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Element
@@ -33,9 +35,11 @@ export default function LivePreview({ state }: { state: GridState }) {
       role={role}
       aria-label={getGridAriaLabel(state)}
       tabIndex={state.tabIndex}
-      style={getShellStyle(state)}
+      style={getShellStyle(state, isHovered)}
       data-layout-variant={getLayoutVariant(state)}
       data-testid="live-preview-grid"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div style={{ gridColumn: "1 / -1" }}>
         <h3 style={{ fontSize: state.titleSize, fontWeight: state.fontWeight, lineHeight: 1.1 }}>{state.title}</h3>

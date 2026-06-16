@@ -62,7 +62,11 @@ export const DEFAULT_GRID_STATE: GridState = {
   "itemMin": 140,
   "layoutVariant": "balanced",
   "justifyItems": "stretch",
-  "alignItems": "stretch"
+  "alignItems": "stretch",
+  "hoverEnabled": false,
+  "hoverBg": "rgba(56,189,248,0.06)",
+  "hoverBorder": "#38bdf8",
+  "hoverShadow": "0 12px 24px rgba(0,0,0,0.25)"
 };
 
 const RAW_GRID_PRESETS: StudioPreset[] = [

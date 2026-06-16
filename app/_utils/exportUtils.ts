@@ -73,7 +73,7 @@ function getGridAriaLabel(grid) {
   return grid.landmarkLabel || undefined;
 }
 
-function getShellStyle(grid) {
+function getShellStyle(grid, hovered) {
   return {
     width: grid.width,
     maxWidth: "100%",
@@ -81,9 +81,9 @@ function getShellStyle(grid) {
     margin: grid.margin,
     padding: grid.padding,
     borderRadius: grid.radius,
-    border: \`\${grid.borderWidth}px solid \${grid.border}\`,
-    boxShadow: \`0 \${Math.round(grid.shadow / 3)}px \${grid.shadow}px rgba(0,0,0,.28)\`,
-    background: grid.background,
+    border: \`\${grid.borderWidth}px solid \${hovered && grid.hoverEnabled ? grid.hoverBorder : grid.border}\`,
+    boxShadow: hovered && grid.hoverEnabled ? grid.hoverShadow : \`0 \${Math.round(grid.shadow / 3)}px \${grid.shadow}px rgba(0,0,0,.28)\`,
+    background: hovered && grid.hoverEnabled ? grid.hoverBg : grid.background,
     color: grid.foreground,
     fontFamily: grid.fontFamily,
     display: "grid",
@@ -131,6 +131,7 @@ export default function GridComponent() {
   const role = getGridRole(config);
   const items = buildItems(config.itemCount);
   const variant = getLayoutVariant(config);
+  const [isHovered, setIsHovered] = React.useState(false);
 
   return (
     <Element
@@ -138,8 +139,10 @@ export default function GridComponent() {
       role={role}
       aria-label={getGridAriaLabel(config)}
       tabIndex={config.tabIndex}
-      style={getShellStyle(config)}
+      style={getShellStyle(config, isHovered)}
       data-layout-variant={variant}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div style={{ gridColumn: "1 / -1" }}>
         <h3 style={{ fontSize: config.titleSize, fontWeight: config.fontWeight, lineHeight: 1.1 }}>{config.title}</h3>

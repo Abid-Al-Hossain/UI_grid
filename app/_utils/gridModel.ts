@@ -49,7 +49,7 @@ export function getAlignment(value: GridItemAlignment | undefined): GridItemAlig
   return value ?? "stretch";
 }
 
-export function getShellStyle(state: GridState): CSSProperties {
+export function getShellStyle(state: GridState, hovered = false): CSSProperties {
   return {
     width: state.width,
     maxWidth: "100%",
@@ -57,9 +57,9 @@ export function getShellStyle(state: GridState): CSSProperties {
     margin: state.margin,
     padding: state.padding,
     borderRadius: state.radius,
-    border: `${state.borderWidth}px solid ${state.border}`,
-    boxShadow: `0 ${Math.round(state.shadowBlur / 3)}px ${state.shadowBlur}px rgba(0,0,0,.28)`,
-    background: state.background,
+    border: `${state.borderWidth}px solid ${hovered && state.hoverEnabled ? state.hoverBorder : state.border}`,
+    boxShadow: hovered && state.hoverEnabled ? state.hoverShadow : `0 ${Math.round(state.shadowBlur / 3)}px ${state.shadowBlur}px rgba(0,0,0,.28)`,
+    background: hovered && state.hoverEnabled ? state.hoverBg : state.background,
     color: state.foreground,
     fontFamily: state.fontBucket === "google" ? `"${state.googleFontFamily}", sans-serif` : "inherit",
     display: "grid",
