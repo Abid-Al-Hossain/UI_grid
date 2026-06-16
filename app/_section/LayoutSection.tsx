@@ -11,6 +11,7 @@ type Props = { state: GridState; update: <K extends keyof GridState>(key: K, val
 export default function LayoutSection({ state, update }: Props) {
   return (
     <SectionCard title="Layout" subtitle="Template, packing, and layout variant controls for native grid generation.">
+      <div className="space-y-4">
       <Select
         label="Auto mode"
         value={state.autoMode}
@@ -51,6 +52,7 @@ export default function LayoutSection({ state, update }: Props) {
       <p className="text-sm leading-6" style={{ color: "var(--muted)" }} data-audit="grid-responsive-note" data-testid="grid-responsive-note">
         Responsive export note: auto-fit and auto-fill emit repeat(auto-*, minmax(itemMin, 1fr)); fixed columns emit repeat(columns, minmax(0, 1fr)) with max-width constrained to the preview shell.
       </p>
+    </div>
     </SectionCard>
   );
 }

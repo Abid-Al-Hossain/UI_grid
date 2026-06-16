@@ -11,6 +11,7 @@ type Props = { state: GridState; update: <K extends keyof GridState>(key: K, val
 export default function MetadataSection({ state, update }: Props) {
   return (
     <SectionCard title="Metadata" subtitle="Semantic element and id controls for native grid generation.">
+      <div className="space-y-4">
       <Input label="id" value={state.id} onChange={(value) => update("id", value)} />
       <Select
         label="Element"
@@ -25,6 +26,7 @@ export default function MetadataSection({ state, update }: Props) {
         onChange={(value) => update("role", value)}
       />
       <Slider label="tabIndex" value={state.tabIndex} min={0} max={4} step={1} onChange={(value) => update("tabIndex", value)} />
+    </div>
     </SectionCard>
   );
 }
